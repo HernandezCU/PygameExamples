@@ -22,7 +22,7 @@ display_surface = pygame.display.set_mode((X, Y))
 pygame.display.set_caption('Image')
 
 # create a surface object, image is drawn on it.
-image = pygame.image.load('E:\PygameExamples\psyduck.png')
+image = pygame.image.load('left.jpg')
 
 # infinite loop
 while True:

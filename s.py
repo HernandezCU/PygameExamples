@@ -1,33 +1,63 @@
 import pygame, sys, time
+import pygame.rect
 from pygame.locals import *
 
 pygame.init()
 
-FPS=30
-fpsClock=pygame.time.Clock()
+FPS = 30
+fpsClock = pygame.time.Clock()
 
-width=400
-height=300
-DISPLAYSURF=pygame.display.set_mode((width,height),0,32)
+width = 400
+height = 300
+DISPLAYSURF = pygame.display.set_mode((width, height), 0, 32)
 pygame.display.set_caption('Animation')
-background=pygame.image.load('up.png')
 
 
-UP='up'
-LEFT='left'
-RIGHT='right'
-DOWN='down'
+sprite = pygame.image.load('up.jpg')
 
-sprite=pygame.image.load('down.png')
-spritex=200
-spritey=130
-direction=DOWN
+spritex = 200
+spritey = 130
+
+white = (255, 255, 255)
+black = (0, 0, 0)
+
+
+def check_collision(box: pygame.rect.Rect, player: pygame.rect.Rect):
+    oxv = [box.left, box.right]
+    oyv = [box.top, box.bottom]
+    pxv = [player.left, player.right]
+    pyv = [player.top, player.bottom]
+    print(oxv)
+    print(oyv)
+    print(pxv)
+    print(pyv)
+    if((pxv[0] > oxv[0]) and (pxv[0] < oxv[1])) or ((pxv[1] > oxv[0]) and (pxv[1] < oxv[1])):
+        if ((pyv[0] > oyv[0]) and (pyv[0] < oyv[1])) or ((pyv[1] > oyv[0]) and (pyv[1] < oyv[1])):
+            print("Collision")
+
+
+
+
+# def calculate_points(rect: pygame.rect.Rect):
+#     points = []
+#
+#     cmds = ['rect.topleft', 'rect.topright', 'rect.bottomleft', 'rect.bottomright',	'rect.midleft', 'rect.midright',
+#             'rect.midtop', 'rect.midbottom']
+#     for cmd in cmds:
+#         x = eval(cmd)
+#         points.append(x)
+#
+#     points.append((rect.centerx, rect.centery))
+#     return points
 
 
 while True:
-    DISPLAYSURF.blit(background,(0,0))
+    DISPLAYSURF.fill(black)
 
-    DISPLAYSURF.blit(sprite,(spritex,spritey))
+    DISPLAYSURF.blit(sprite, (spritex, spritey))
+    r = pygame.Rect(30,30,60,60)
+    x = pygame.draw.rect(DISPLAYSURF, white, r)
+    pygame.display.flip()
 
     for event in pygame.event.get():
         if event.type==QUIT:
@@ -36,13 +66,13 @@ while True:
 
         if event.type == KEYDOWN:
             if (event.key == pygame.K_LEFT):
-                sprite=pygame.image.load('left.png')
+                sprite=pygame.image.load('left.jpg')
             elif (event.key == pygame.K_RIGHT):
-                sprite=pygame.image.load('right.png')
+                sprite=pygame.image.load('right.jpg')
             elif (event.key == pygame.K_UP):
-                sprite=pygame.image.load('up.png')
+                sprite=pygame.image.load('up.jpg')
             elif (event.key == pygame.K_DOWN):
-                sprite=pygame.image.load('down.png')
+                sprite=pygame.image.load('down.jpg')
 
     keys_pressed = pygame.key.get_pressed()
 
@@ -57,6 +87,15 @@ while True:
 
     if keys_pressed[pygame.K_DOWN]:
         spritey += 5
+
+    # sprite_points = calculate_points(sprite.get_rect())
+    check_collision(r, sprite.get_rect())
+
+    # if x.colliderect(sprite.get_rect()):
+    #     print("Collision Detected!")
+    #     white = (255,0,0)
+    # else:
+    #     white = (255,255,255)
 
     pygame.display.update()
     fpsClock.tick(FPS)
