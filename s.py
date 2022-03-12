@@ -22,21 +22,29 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 
 
-def check_collision(box: pygame.rect.Rect, player: pygame.rect.Rect):
+# def check_collision(box: pygame.rect.Rect,player: pygame.rect.Rect):
+#     oxv = [box.left, box.right]
+#     oyv = [box.top, box.bottom]
+#     pxv = [player.left, player.right]
+#     pyv = [player.top, player.bottom]
+#     print(oxv)
+#     print(oyv)
+#     print(pxv)
+#     print(pyv)
+#     if((pxv[0] > oxv[0]) and (pxv[0] < oxv[1])) or ((pxv[1] > oxv[0]) and (pxv[1] < oxv[1])):
+#         if ((pyv[0] > oyv[0]) and (pyv[0] < oyv[1])) or ((pyv[1] > oyv[0]) and (pyv[1] < oyv[1])):
+#             print("Collision")
+
+
+def check_collision(box: pygame.rect.Rect, playerx, playery):
     oxv = [box.left, box.right]
     oyv = [box.top, box.bottom]
-    pxv = [player.left, player.right]
-    pyv = [player.top, player.bottom]
-    print(oxv)
-    print(oyv)
-    print(pxv)
-    print(pyv)
+    pxv = [playerx, playerx + 74]
+    pyv = [playery, playery + 74]
+
     if((pxv[0] > oxv[0]) and (pxv[0] < oxv[1])) or ((pxv[1] > oxv[0]) and (pxv[1] < oxv[1])):
         if ((pyv[0] > oyv[0]) and (pyv[0] < oyv[1])) or ((pyv[1] > oyv[0]) and (pyv[1] < oyv[1])):
             print("Collision")
-
-
-
 
 # def calculate_points(rect: pygame.rect.Rect):
 #     points = []
@@ -89,7 +97,7 @@ while True:
         spritey += 5
 
     # sprite_points = calculate_points(sprite.get_rect())
-    check_collision(r, sprite.get_rect())
+    check_collision(r, spritex, spritey)
 
     # if x.colliderect(sprite.get_rect()):
     #     print("Collision Detected!")
